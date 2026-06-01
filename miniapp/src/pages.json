@@ -1,0 +1,59 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^mesh-bg$": "@/components/MeshBg.vue"
+    }
+  },
+  "pages": [
+    { "path": "pages/home/index", "style": { "navigationBarTitleText": "首页", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/login/index", "style": { "navigationBarTitleText": "登录", "navigationStyle": "custom" } },
+    { "path": "pages/exercise/list", "style": { "navigationBarTitleText": "动作库", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/exercise/edit", "style": { "navigationBarTitleText": "编辑动作", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/plan/list", "style": { "navigationBarTitleText": "训练计划", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/plan/edit", "style": { "navigationBarTitleText": "编辑计划", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/plan/detail", "style": { "navigationBarTitleText": "计划详情", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/execute/index", "style": { "navigationBarTitleText": "训练中", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/execute/summary", "style": { "navigationBarTitleText": "训练完成", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/record/list", "style": { "navigationBarTitleText": "训练记录", "navigationBarBackgroundColor": "#e8eef8" } },
+    { "path": "pages/mine/index", "style": { "navigationBarTitleText": "我的", "navigationBarBackgroundColor": "#e8eef8" } }
+  ],
+  "tabBar": {
+    "color": "#94a3b8",
+    "selectedColor": "#10b981",
+    "backgroundColor": "rgba(255,255,255,0.92)",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "static/tabbar/home-green.png",
+        "selectedIconPath": "static/tabbar/home-active-green.png"
+      },
+      {
+        "pagePath": "pages/plan/list",
+        "text": "计划",
+        "iconPath": "static/tabbar/plan-green.png",
+        "selectedIconPath": "static/tabbar/plan-active-green.png"
+      },
+      {
+        "pagePath": "pages/record/list",
+        "text": "记录",
+        "iconPath": "static/tabbar/record-green.png",
+        "selectedIconPath": "static/tabbar/record-active-green.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "static/tabbar/mine-green.png",
+        "selectedIconPath": "static/tabbar/mine-active-green.png"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "脊柱康复",
+    "navigationBarBackgroundColor": "#e8eef8",
+    "backgroundColor": "#e8eef8"
+  }
+}

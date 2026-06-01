@@ -1,0 +1,5 @@
+node_modules/
+dist/
+data/minio/
+*.log
+.DS_Store

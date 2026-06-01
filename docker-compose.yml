@@ -1,0 +1,47 @@
+# 可选：仅在本机已安装 Docker 时使用。无 Docker 请见 docs/本地安装-无Docker.md
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: spine-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: spine_train
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  minio:
+    image: minio/minio:latest
+    container_name: spine-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
+  # 首次启动后访问 http://localhost:9001 创建 bucket: spine-train，或运行 server 内 init 脚本
+  createbuckets:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 3;
+      mc alias set local http://minio:9000 minioadmin minioadmin;
+      mc mb -p local/spine-train || true;
+      mc anonymous set download local/spine-train;
+      exit 0;
+      "
+
+volumes:
+  mysql_data:
+  minio_data:

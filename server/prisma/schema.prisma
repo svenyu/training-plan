@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// 微信用户（家长单账号）
+model User {
+  id              BigInt   @id @default(autoincrement())
+  openid          String   @unique @db.VarChar(64)
+  nickname        String?  @db.VarChar(64)
+  avatarUrl       String?  @map("avatar_url") @db.VarChar(512)
+  remindEnabled   Boolean  @default(false) @map("remind_enabled")
+  remindTime      String?  @map("remind_time") @db.VarChar(8)
+  subscribeQuota  Int      @default(0) @map("subscribe_quota")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  exercises  Exercise[]
+  plans      TrainingPlan[]
+  executions PlanExecution[]
+  subLogs    SubscribeLog[]
+
+  @@map("user")
+}
+
+/// 康复动作
+model Exercise {
+  id          BigInt   @id @default(autoincrement())
+  userId      BigInt   @map("user_id")
+  name        String   @db.VarChar(100)
+  category    String   @default("main") @db.VarChar(32)
+  description String?  @db.Text
+  videoUrl    String?  @map("video_url") @db.VarChar(512)
+  status      Int      @default(1)
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user         User           @relation(fields: [userId], references: [id])
+  planItems    PlanExercise[]
+  execItems    ExecutionItem[]
+
+  @@index([userId])
+  @@map("exercise")
+}
+
+/// 训练计划
+model TrainingPlan {
+  id          BigInt    @id @default(autoincrement())
+  userId      BigInt    @map("user_id")
+  name        String    @db.VarChar(100)
+  description String?   @db.Text
+  timeMode    String    @map("time_mode") @db.VarChar(16)
+  totalDays   Int?      @map("total_days")
+  startDate   DateTime? @map("start_date") @db.Date
+  endDate     DateTime? @map("end_date") @db.Date
+  status      String    @default("active") @db.VarChar(16)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  user       User            @relation(fields: [userId], references: [id])
+  exercises  PlanExercise[]
+  executions PlanExecution[]
+
+  @@index([userId])
+  @@map("training_plan")
+}
+
+/// 计划内动作项
+model PlanExercise {
+  id         BigInt  @id @default(autoincrement())
+  planId     BigInt  @map("plan_id")
+  exerciseId BigInt  @map("exercise_id")
+  sortOrder  Int     @map("sort_order")
+  setsDesc   String? @map("sets_desc") @db.VarChar(200)
+
+  plan     TrainingPlan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  exercise Exercise        @relation(fields: [exerciseId], references: [id])
+  items    ExecutionItem[]
+
+  @@index([planId])
+  @@map("plan_exercise")
+}
+
+/// 一次训练会话
+model PlanExecution {
+  id         BigInt    @id @default(autoincrement())
+  planId     BigInt    @map("plan_id")
+  userId     BigInt    @map("user_id")
+  trainDate  DateTime  @map("train_date") @db.Date
+  status     String    @default("in_progress") @db.VarChar(16)
+  startedAt  DateTime  @default(now()) @map("started_at")
+  endedAt    DateTime? @map("ended_at")
+
+  plan  TrainingPlan    @relation(fields: [planId], references: [id], onDelete: Cascade)
+  user  User            @relation(fields: [userId], references: [id])
+  items ExecutionItem[]
+
+  @@index([planId, trainDate])
+  @@index([userId])
+  @@map("plan_execution")
+}
+
+/// 单项执行记录
+model ExecutionItem {
+  id              BigInt    @id @default(autoincrement())
+  executionId     BigInt    @map("execution_id")
+  planExerciseId  BigInt    @map("plan_exercise_id")
+  exerciseId      BigInt    @map("exercise_id")
+  sortOrder       Int       @map("sort_order")
+  status          String    @default("pending") @db.VarChar(16)
+  qualityRating   String?   @map("quality_rating") @db.VarChar(16)
+  skipReason      String?   @map("skip_reason") @db.VarChar(200)
+  completedAt     DateTime? @map("completed_at")
+
+  execution    PlanExecution @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  planExercise PlanExercise  @relation(fields: [planExerciseId], references: [id])
+  exercise     Exercise      @relation(fields: [exerciseId], references: [id])
+
+  @@index([executionId])
+  @@map("execution_item")
+}
+
+/// 订阅消息日志
+model SubscribeLog {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt   @map("user_id")
+  action    String   @db.VarChar(32)
+  result    String?  @db.VarChar(200)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("subscribe_log")
+}

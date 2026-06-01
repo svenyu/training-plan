@@ -1,0 +1,32 @@
+/* 脊柱康复 — 绿色清新主题 */
+page {
+  --color-primary: #10b981;
+  --color-primary-dark: #059669;
+  --color-primary-light: #34d399;
+  --color-accent: #06b6d4;
+  --color-wechat: #07c160;
+  --color-text: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-border: rgba(255, 255, 255, 0.65);
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-bg-strong: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-blur: 40rpx;
+  --shadow-glass: 0 8rpx 32rpx rgba(16, 185, 129, 0.15), inset 0 2rpx 0 rgba(255, 255, 255, 0.8);
+  --shadow-float: 0 20rpx 60rpx rgba(16, 185, 129, 0.25);
+  --gradient-green: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(52, 211, 153, 0.85) 100%);
+  --gradient-btn: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --radius-sm: 16rpx;
+  --radius-md: 24rpx;
+  --radius-lg: 32rpx;
+  --radius-pill: 999rpx;
+  background: #f0f9f6;
+  font-size: 28rpx;
+  color: var(--color-text);
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}

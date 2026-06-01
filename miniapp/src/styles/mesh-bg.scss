@@ -1,0 +1,68 @@
+/* MeshBg 组件：固定全屏渐变光斑背景 */
+.mesh-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80rpx);
+  opacity: 0.75;
+  animation: mesh-float 12s ease-in-out infinite;
+}
+
+.mesh-blob--1 {
+  width: 520rpx;
+  height: 520rpx;
+  top: -120rpx;
+  right: -100rpx;
+  background: radial-gradient(circle, #5eead4 0%, transparent 70%);
+  animation-delay: 0s;
+}
+
+.mesh-blob--2 {
+  width: 480rpx;
+  height: 480rpx;
+  top: 35%;
+  left: -140rpx;
+  background: radial-gradient(circle, #c4b5fd 0%, transparent 70%);
+  animation-delay: -4s;
+}
+
+.mesh-blob--3 {
+  width: 440rpx;
+  height: 440rpx;
+  bottom: 15%;
+  right: -80rpx;
+  background: radial-gradient(circle, #fda4af 0%, transparent 70%);
+  animation-delay: -8s;
+}
+
+.mesh-blob--4 {
+  width: 400rpx;
+  height: 400rpx;
+  bottom: -80rpx;
+  left: 20%;
+  background: radial-gradient(circle, #7dd3fc 0%, transparent 70%);
+  animation-delay: -2s;
+}
+
+@keyframes mesh-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(24rpx, -32rpx) scale(1.06);
+  }
+  66% {
+    transform: translate(-20rpx, 20rpx) scale(0.96);
+  }
+}

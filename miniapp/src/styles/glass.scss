@@ -1,0 +1,27 @@
+/* 毛玻璃 mixin 与多彩背景层 */
+@mixin glass($alpha: 0.52) {
+  background: rgba(255, 255, 255, $alpha);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1rpx solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+@mixin glass-tint($r, $g, $b, $alpha: 0.35) {
+  background: rgba($r, $g, $b, $alpha);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1rpx solid rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-glass);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

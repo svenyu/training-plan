@@ -1,0 +1,16 @@
+{
+  "name": "脊柱康复训练",
+  "appid": "__UNI_APPID__",
+  "description": "家庭脊柱侧弯康复训练",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "mp-weixin": {
+    "appid": "wx2c36881222267ea3",
+    "setting": {
+      "urlCheck": false
+    },
+    "usingComponents": true
+  },
+  "vueVersion": "3"
+}
